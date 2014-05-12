@@ -1,0 +1,12 @@
+Package: teaclub
+Title: Teaclub wrangling
+Version: 0.1
+Authors@R: "R.J.B Goudie <rjbgoudie@gmail.com> [aut, cre]"
+Description: Provides you with unlimited tea, coffee and biscuits
+Depends:
+    R (>= 3.1.0)
+License: GPL-2
+LazyData: true
+Imports:
+    xtable,
+    plyr
