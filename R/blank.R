@@ -52,7 +52,8 @@ blank_used <- function(){
   people$amount <- 0
   people <- subset(people, select = c("unique_id", "amount"))
 
-  message("Remember to add on milk money to Sharon's account")
+  message("Remember to add on milk money to sharon's used")
+  message("Remember to add toby's used to teresa's used")
   write.csv(people,
             file = path_today("used"),
             row.names = F)
