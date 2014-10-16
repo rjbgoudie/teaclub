@@ -45,7 +45,7 @@ sheet_df <- function(df){
 #' @param tabular.environment A tabular.environment from xtable
 #' @return A character string of latex code
 #' @author R.J.B. Goudie
-data.frame.as.latex <- function(df,
+as.latex.data.frame <- function(df,
                                 tabular.environment = "tabular",
                                 floating = T){
   r <- rep("p{2cm}|", length = ncol(df) + 1)
@@ -67,7 +67,7 @@ data.frame.as.latex <- function(df,
 #' @author R.J.B. Goudie
 sheet_df_to_latex <- function(sheet_df){
   sheet_df_list <- list(sheet_df[, 1:8], sheet_df[, 9:16], sheet_df[, 17:24])
-  sheet_latex_list <- lapply(sheet_df_list, data.frame.as.latex)
+  sheet_latex_list <- lapply(sheet_df_list, as.latex.data.frame)
 
   latex_top <- "\\documentclass[a4paper]{article}\n\\usepackage[top=0.25in, bottom=0.25in, left=0.25in, right=0.25in]{geometry}\n\\renewcommand{\\topfraction}{0.999}	% max fraction of floats at top\n\\renewcommand{\\bottomfraction}{0.999}\n\\renewcommand{\\textfraction}{0}\n\\begin{document}\n  \n\\begin{center}\n\\textbf{BSU TEA CLUB}\n\nNew staff/students and long-term visitors: please add your name in a free space.\n\nShort-term visitors: please enter purchases in `visitors' section\n\\end{center}\n\\linespread{1.5}"
   latex_bottom <- "\\end{document}"
