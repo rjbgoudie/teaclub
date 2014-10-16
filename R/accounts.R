@@ -1,10 +1,19 @@
 #' @title Load accounts (either used or paid)
 #'
 #' @description
-#' Note that people NOT on the most recent people file are dropped.
+#' Loads either used/*.csv or paid/*.csv
+#'
+#' NOTE people NOT on today's people file are DROPPED.
 #'
 #' @param directory A character string, either "used" or "paid"
-#' @return A data.frame with used or paid for all current people
+#' @return A data.frame with used or paid for all current people. The result is
+#' a all of the csv files in the directory joined together as a data.frame,
+#' combined with extra information from the current people file.
+#'
+#' The columns of the data.frame are "unique_id", "date", "amount",
+#' "display_name", "email", "handwriting_factor"
+#'
+#' NOTE people NOT on today's people file are DROPPED.
 #' @author R.J.B. Goudie
 load_accounts <- function(directory){
   files <- dir(directory)
@@ -17,12 +26,21 @@ load_accounts <- function(directory){
   people <- load_people_today()
 
   # Note that people NOT on the most recent people file are dropped!
+  # ie don't include accounts for people not in the people data.frame
   combine_accounts_people(accounts, people, all.accounts = F)
 }
 
 #' @title How much have people used the teaclub recently?
-#' @return A data.frame of the amount spent in the last 3 months,
-#' by person
+#'
+#' @description
+#' Load the last 3 months of "used" data, and total up how much everyone spent.
+#' ONLY people in the current people file are included, because this is used
+#' for the new sheet for the tearoom.
+#'
+#' @return A data.frame of the amount spent in the last 3 months. Each person's
+#' spending for each of the last three months is a row.
+#' The columns of the data.frame are "unique_id", "amount",
+#' "display_name", "email", "handwriting_factor". "amount" is the amount spent.
 #' @author R.J.B. Goudie
 accounts_recent_used <- function(){
   # load accounts of the amount used
@@ -41,12 +59,19 @@ accounts_recent_used <- function(){
 }
 
 #' @title Combine account and people data.frames
+#'
+#' @description
+#' Just a wrapper around merge, plus sorting option
+#'
 #' @param accounts An accounts data.frame
 #' @param people A people data.frame
 #' @param sort A logical, should the data.frame be sorted (by display name)
-#' @param all.accounts Should all accounts be included in the merge?
-#' @param all.people Should all people be included in the merge?
-#' @return A data.frame
+#' @param all.accounts Should all accounts be included in the merge? i.e. should
+#' accounts be included for people not in the 'people' data.frame? If FALSE,
+#' these accounts arre DROPPED
+#' @param all.people Should all people be included in the merge? i.e. should
+#' people who do not have a corresponding account be dropped?
+#' @return A merged data.frame
 #' @author R.J.B. Goudie
 combine_accounts_people <- function(accounts,
                                     people,
@@ -64,9 +89,20 @@ combine_accounts_people <- function(accounts,
 #' @title Compute balances
 #'
 #' @description
+#' Add up the total amount used (over all months), subtract the total amount
+#' (over all months) to get each person's balance
+#'
 #' Note that people NOT on the most recent people file are dropped!
 #'
-#' @return A data.frame of balances
+#' Negative numbers indicate the person owes the teaclub money. Positive
+#' numbers indicate the person is in credit.
+#'
+#' Amounts are returned in POUNDS
+#'
+#' @return A data.frame of balances. Each row corresponds to a person.
+#' Columns are "display_name", "unique_id", "email", "balance"
+#'
+#' NOTE the balance is in POUNDS
 #' @author R.J.B. Goudie
 compute_balances <- function(){
   # load accounts of the amount used
