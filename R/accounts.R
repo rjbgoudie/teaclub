@@ -67,7 +67,7 @@ load_accounts <- function(directory){
 
   # Note that people NOT on the most recent people file are dropped!
   # ie don't include accounts for people not in the people data.frame
-  combine_accounts_people(accounts, people_latest, all.accounts = F)
+  merge_accounts_people(accounts, people_latest, all.accounts = F)
 }
 
 #' @title How much have people used the teaclub recently?
@@ -92,7 +92,7 @@ accounts_recent_used <- function(){
   used4 <- load_directory_x_most_recent(4, "used")
   recent_used <- rbind(used2, used3, used4)
 
-  combine_accounts_people(recent_used,
+  merge_accounts_people(recent_used,
                           people_latest,
                           all.accounts = F,
                           all.people = T)
@@ -113,7 +113,7 @@ accounts_recent_used <- function(){
 #' people who do not have a corresponding account be dropped?
 #' @return A merged data.frame
 #' @author R.J.B. Goudie
-combine_accounts_people <- function(accounts,
+merge_accounts_people <- function(accounts,
                                     people,
                                     sort = F,
                                     all.accounts = T,
