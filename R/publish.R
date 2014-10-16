@@ -111,7 +111,18 @@ publish_owe_sheet <- function(balance_df){
   latex_table <- as.latex.data.frame(owe_df,
                                      tabular.environment= "longtable",
                                      floating = F)
-  latex_top <- paste("\\documentclass[a4paper]{article}\n\\usepackage[top=0.25in, bottom=0.25in, left=0.25in, right=0.25in]{geometry}\n\\usepackage{longtable}\n\\renewcommand{\\topfraction}{0.999}	% max fraction of floats at top\n\\renewcommand{\\bottomfraction}{0.999}\n\\renewcommand{\\textfraction}{0}\n\\begin{document}\n  \n\\begin{center}\n\\textbf{BSU Tea Club balances at ", today_date_file_string(), "}\\end{center}\n\\linespread{1.5}")
+  latex_top <- paste("\\documentclass[a4paper]{article}
+\\usepackage[top=0.25in, bottom=0.25in, left=0.25in, right=0.25in]{geometry}
+\\usepackage{longtable}
+\\renewcommand{\\topfraction}{0.999}	% max fraction of floats at top
+\\renewcommand{\\bottomfraction}{0.999}
+\\renewcommand{\\textfraction}{0}
+\\begin{document}
+\\begin{center}
+\\textbf{BSU Tea Club balances at ",
+today_date_file_string(),
+"}\\end{center}
+\\linespread{1.5}")
   latex_bottom <- "\\end{document}"
 
   owe_file_path <- path_today("owe", extension = "tex")

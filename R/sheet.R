@@ -69,7 +69,20 @@ sheet_df_to_latex <- function(sheet_df){
   sheet_df_list <- list(sheet_df[, 1:8], sheet_df[, 9:16], sheet_df[, 17:24])
   sheet_latex_list <- lapply(sheet_df_list, as.latex.data.frame)
 
-  latex_top <- "\\documentclass[a4paper]{article}\n\\usepackage[top=0.25in, bottom=0.25in, left=0.25in, right=0.25in]{geometry}\n\\renewcommand{\\topfraction}{0.999}	% max fraction of floats at top\n\\renewcommand{\\bottomfraction}{0.999}\n\\renewcommand{\\textfraction}{0}\n\\begin{document}\n  \n\\begin{center}\n\\textbf{BSU TEA CLUB}\n\nNew staff/students and long-term visitors: please add your name in a free space.\n\nShort-term visitors: please enter purchases in `visitors' section\n\\end{center}\n\\linespread{1.5}"
+  latex_top <- "\\documentclass[a4paper]{article}
+\\usepackage[top=0.25in, bottom=0.25in, left=0.25in, right=0.25in]{geometry}
+\\renewcommand{\\topfraction}{0.999}% max fraction of floats at top
+\\renewcommand{\\bottomfraction}{0.999}
+\\renewcommand{\\textfraction}{0}
+\\begin{document}
+\\begin{center}
+\\textbf{BSU TEA CLUB}
+
+New staff/students and long-term visitors: please add your name in a free space.
+
+Short-term visitors: please enter purchases in `visitors' section
+\\end{center}
+\\linespread{1.5}"
   latex_bottom <- "\\end{document}"
 
   sheet_file_path <- path_today("sheet", extension = "tex")
