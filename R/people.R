@@ -44,12 +44,12 @@ load_people_x_most_recent <- function(x){
   sort_by_display_name(people)
 }
 
-#' @title Load union of second most recent and most recent 'people'
+#' @title Load union of new people and existing people
 #'
 #' @description
 #' The people file changes from month to month. This gives all the
 #' people from last month, plus the new people. The new people are added to the
-#' bottom of the data.frame. Within each group (ie new and old people), the
+#' top of the data.frame. Within each group (ie new and old people), the
 #' rows are sorted by display_name.
 #'
 #' @return A data.frame, with people corresponding to rows.
@@ -61,10 +61,10 @@ load_people_x_most_recent <- function(x){
 #' "handwriting_factor" - fudge the number of cells in tearoom sheet
 #'
 #' @author R.J.B. Goudie
-load_people_penultimate_union_latest <- function(){
+load_people_new_union_penultimate <- function(){
   people_penultimate <- load_people_penultimate()
   people_new <- load_people_latest_less_penultimate()
-  rbind(people_penultimate, people_new)
+  rbind(people_new, people_penultimate)
 }
 
 #' @title Load setdiff of most recent and second most recent 'people'
