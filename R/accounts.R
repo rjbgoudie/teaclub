@@ -74,7 +74,7 @@ load_all_accounts <- function(directory){
 #' @param directory A character,  either "used" or "paid"
 #' @return A data.frame
 #' @author R.J.B. Goudie
-load_account_new_people_only <- function(directory){
+load_new_people_latest_acconut <- function(directory){
   latest_account <- load_directory_latest(directory)
   people_new <- load_people_latest_less_penultimate()
   merge_for_these_people_only(latest_account, people_new)
@@ -84,7 +84,7 @@ load_account_new_people_only <- function(directory){
 #' @param directory A character, either "used" or "paid"
 #' @return A data.frame
 #' @author R.J.B. Goudie
-load_account_penultimate_people <- function(directory){
+load_penultimate_people_latest_account <- function(directory){
   latest_account <- load_directory_latest(directory)
   people_penultimate <- load_people_penultimate()
   merge_for_these_people_only(latest_account, people_penultimate)
