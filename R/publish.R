@@ -22,11 +22,6 @@ publish_balances <- function(owe_function, credit_function){
   publish_owe_pdf(balance_df)
 }
 
-# toby_teresa <- function(df){
-#   toby_row <- df$unique_id == "toby"
-#   message("adding toby's amount to ")
-# }
-
 #' @title Send emails with balances
 #'
 #' @description
