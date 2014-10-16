@@ -1,7 +1,14 @@
 #' @title Load most recent 'people' data frame
 #' @param ... Passed to load_people_x_most_recent. Currently
 #' includes sort logical
-#' @return A data.frame, with people corresponding to rows
+#' @return A data.frame, with each person on a separate row. Columns are
+#' "unique_id", "display_name", "email" and "handwriting_factor"
+#'
+#' "unique_id" - MUST be unique across all time,  since balances match on this
+#' "display_name" - What is shown on the tearoom sheet,  and in emails
+#' "email" - An email address. Part after @ sign (for internal addresses) can be omitted
+#' "handwriting_factor" - fudge the number of cells in tearoom sheet
+#'
 #' @author R.J.B. Goudie
 load_people_latest <- function(...){
   load_people_x_most_recent(1, ...)
@@ -10,7 +17,13 @@ load_people_latest <- function(...){
 #' @title Load second most recent 'people' data frame
 #' @param ... Passed to load_people_x_most_recent. Currently
 #' includes sort logical
-#' @return A data.frame, with people corresponding to rows
+#' @return A data.frame, with each person on a separate row. Columns are
+#' "unique_id", "display_name", "email" and "handwriting_factor"
+#'
+#' "unique_id" - MUST be unique across all time,  since balances match on this
+#' "display_name" - What is shown on the tearoom sheet,  and in emails
+#' "email" - An email address. Part after @ sign (for internal addresses) can be omitted
+#' "handwriting_factor" - fudge the number of cells in tearoom sheet
 #' @author R.J.B. Goudie
 load_people_penultimate <- function(...){
   load_people_x_most_recent(2, ...)
@@ -21,7 +34,13 @@ load_people_penultimate <- function(...){
 #' recent, 2 second most recent etc
 #' @param sort A logical, should the people be sorted by display
 #' name?
-#' @return A data.frame, with people corresponding to rows
+#' @return A data.frame, with each person on a separate row. Columns are
+#' "unique_id", "display_name", "email" and "handwriting_factor"
+#'
+#' "unique_id" - MUST be unique across all time,  since balances match on this
+#' "display_name" - What is shown on the tearoom sheet,  and in emails
+#' "email" - An email address. Part after @ sign (for internal addresses) can be omitted
+#' "handwriting_factor" - fudge the number of cells in tearoom sheet
 #' @author R.J.B. Goudie
 load_people_x_most_recent <- function(x, sort = T){
   people <- load_directory_x_most_recent(x, "people")
@@ -46,6 +65,13 @@ load_people_x_most_recent <- function(x, sort = T){
 #' name?
 #' @return A data.frame, with people corresponding to rows. If sort = F
 #' then the new people will be appended to the end of the data.frame
+#' Columns are "unique_id", "display_name", "email" and "handwriting_factor"
+#'
+#' "unique_id" - MUST be unique across all time,  since balances match on this
+#' "display_name" - What is shown on the tearoom sheet,  and in emails
+#' "email" - An email address. Part after @ sign (for internal addresses) can be omitted
+#' "handwriting_factor" - fudge the number of cells in tearoom sheet
+#'
 #' @author R.J.B. Goudie
 load_people_penultimate_union_latest <- function(sort = F){
   people_penultimate <- load_people_penultimate()
@@ -71,6 +97,13 @@ load_people_penultimate_union_latest <- function(sort = F){
 #' @param sort A logical, should the people be sorted by display
 #' name?
 #' @return A data.frame, with people corresponding to rows.
+#' Columns are "unique_id", "display_name", "email" and "handwriting_factor"
+#'
+#' "unique_id" - MUST be unique across all time,  since balances match on this
+#' "display_name" - What is shown on the tearoom sheet,  and in emails
+#' "email" - An email address. Part after @ sign (for internal addresses) can be omitted
+#' "handwriting_factor" - fudge the number of cells in tearoom sheet
+#'
 #' @author R.J.B. Goudie
 load_people_latest_less_penultimate <- function(sort = F){
   people_penultimate <- load_people_penultimate()
