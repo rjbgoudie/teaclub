@@ -18,7 +18,7 @@ publish_balances <- function(owe_function, credit_function, dry_run = T){
 
   # Note that people NOT on the most recent people file are dropped!
   balance_df <- account_balances()
-  publish_owe_pdf(balance_df)
+  publish_owe_sheet(balance_df)
 
   # export_email_tab(balance_df)
   email_df <- draft_all_emails(balance_df, owe_function, credit_function)
@@ -98,7 +98,7 @@ filter_people_lacking_email <- function(x){
 #' @return NULL
 #' @author R.J.B. Goudie
 #' @export
-publish_owe_pdf <- function(balance_df){
+publish_owe_sheet <- function(balance_df){
   owe_df <- subset(balance_df, select = c("display_name", "balance"))
   owe_df$paid <- "      "
   row_half_way <- floor(nrow(owe_df)/2)
