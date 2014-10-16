@@ -3,7 +3,8 @@
 #' @return A file path of the form e.g. "owe/2014-09-09.csv"
 #' @author R.J.B. Goudie
 path_today <- function(directory){
-  today_filename <- paste0(today_date_file_string(), ".csv")
+  base <- today_date_file_string()
+  today_filename <- paste0(base, ".csv")
   file.path(directory, today_filename)
 }
 
@@ -12,15 +13,15 @@ path_today <- function(directory){
 #' @return A file path of the form e.g. "owe/2014-09-09.csv"
 #' @author R.J.B. Goudie
 path_most_recent <- function(directory){
-  find_x_most_recent_file(1, directory)
+  path_x_most_recent(1, directory)
 }
 
 #' @title Get path to csv for second most recent file
 #' @param directory The directory ("owe", "used", "sheet", "paid", "people")
 #' @return A file path of the form e.g. "owe/2014-09-09.csv"
 #' @author R.J.B. Goudie
-path_prior <- function(directory){
-  find_x_most_recent_file(2, directory)
+path_second_most_recent <- function(directory){
+  path_x_most_recent(2, directory)
 }
 
 #' @title Get path to csv for xth most recent month
@@ -28,13 +29,9 @@ path_prior <- function(directory){
 #' @return A file path of the form e.g. "owe/2014-09-09.csv"
 #' @author R.J.B. Goudie
 path_x_most_recent <- function(x, directory){
-  if (x == 1){
-    path_today(directory)
-  } else {
-    base <- find_x_most_recent_file(x, directory)
-    file <- paste0(base, ".csv")
-    file.path(directory, file)
-  }
+  base <- find_x_most_recent_file(x, directory)
+  file <- paste0(base, ".csv")
+  file.path(directory, file)
 }
 
 #' @title Get most recent file in a directory
