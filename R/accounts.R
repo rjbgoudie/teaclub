@@ -23,7 +23,7 @@ load_accounts <- function(directory){
   accounts <- plyr::ldply(files_paths, read.csv, stringsAsFactor = F)
   colnames(accounts)[colnames(accounts) == ".id"] <- "date"
 
-  people <- load_people_today()
+  people <- load_people_latest()
 
   # Note that people NOT on the most recent people file are dropped!
   # ie don't include accounts for people not in the people data.frame
@@ -44,7 +44,7 @@ load_accounts <- function(directory){
 #' @author R.J.B. Goudie
 accounts_recent_used <- function(){
   # load accounts of the amount used
-  people <- load_people_today()
+  people <- load_people_latest()
 
   # Don't actually want most recent, since already made this month file
   used2 <- load_x_most_recent(2, "used")

@@ -5,7 +5,7 @@
 #' @export
 display_check <- function(directory){
   new <- load_directory_new_people_only(directory)
-  existing <- load_directory_not_new_people(directory)
+  existing <- load_directory_penultimate_people(directory)
 
   existing <- subset(existing,
                      select = c("unique_id", "display_name", "amount"))

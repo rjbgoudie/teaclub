@@ -22,12 +22,8 @@ load_x_most_recent <- function(x, directory){
 load_directory_new_people_only <- function(directory){
   accounts <- load_x_most_recent(1, directory)
 
-  # Don't use the new people file to sort, since there may have been changes
-  old_people <- load_people_prior()
-  new_people <- load_people_today()
+  new_people_only <- load_people_latest_less_penultimate()
 
-  new_people_rows <- !new_people$unique_id %in% old_people$unique_id
-  new_people_only <- new_people[new_people_rows, ]
   new_unique_ids <- new_people_only$unique_id
   new_accounts_rows <- accounts$unique_id %in% new_unique_ids
 
@@ -40,20 +36,15 @@ load_directory_new_people_only <- function(directory){
 #' @param directory A character, either "used" or "paid"
 #' @return A data.frame
 #' @author R.J.B. Goudie
-load_directory_not_new_people <- function(directory){
+load_directory_penultimate_people <- function(directory){
   accounts <- load_x_most_recent(1, directory)
 
-  # Don't use the new people file to sort, since there may have been changes
-  old_people <- load_people_prior()
-  new_people <- load_people_today()
+  people_penultimate <- load_people_penultimate()
+  penultimate_people_unique_ids <- people_penultimate$unique_id
+  penultimate_people_accounts_rows <-
+    accounts$unique_id %in% penultimate_people_unique_ids
+  penultimate_people_accounts_only <-
+    accounts[penultimate_people_accounts_rows, ]
 
-  new_people_rows <- !new_people$unique_id %in% old_people$unique_id
-  new_people_only <- new_people[new_people_rows, ]
-  new_unique_ids <- new_people_only$unique_id
-  new_accounts_rows <- accounts$unique_id %in% new_unique_ids
-
-  new_accounts_only <- accounts[new_accounts_rows, ]
-  old_accounts_only <- accounts[!new_accounts_rows, ]
-
-  combine_accounts_people(old_accounts_only, old_people)
+  combine_accounts_people(penultimate_people_accounts_only, people_penultimate)
 }

@@ -32,7 +32,7 @@ blank_paid <- function(){
   # New people have sometimes paid before the bills are set out
   # due to misunderstanding the system, so include them at the
   # bottom of the paid csv file
-  people <- load_people_prior_union_today()
+  people <- load_people_penultimate_union_latest()
   people$amount <- 0
   people <- subset(people, select = c("unique_id", "amount"))
 
@@ -52,7 +52,7 @@ blank_paid <- function(){
 #' @author R.J.B. Goudie
 #' @export
 blank_used <- function(){
-  people <- load_people_prior_union_today()
+  people <- load_people_penultimate_union_latest()
   people$amount <- 0
   people <- subset(people, select = c("unique_id", "amount"))
 
