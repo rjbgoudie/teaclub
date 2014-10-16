@@ -54,7 +54,8 @@ display_summary <- function(){
 }
 
 #' @title Display balances
-#' @return A data.frame of balances
+#' @return A data.frame of balances. Each row corresponds to a person.
+#' The columns are "unique_id", "display_name", "balance". Balance is in pounds.
 #' @author R.J.B. Goudie
 #' @export
 display_balances <- function(){
