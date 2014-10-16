@@ -3,7 +3,7 @@
 #' @description
 #' Loads either used/*.csv or paid/*.csv
 #'
-#' NOTE people NOT on today's people file are DROPPED.
+#' NOTE people NOT on latest people file are DROPPED.
 #'
 #' @param directory A character string, either "used" or "paid"
 #' @return A data.frame with used or paid for all current people. The result is
@@ -13,7 +13,7 @@
 #' The columns of the data.frame are "unique_id", "date", "amount",
 #' "display_name", "email", "handwriting_factor"
 #'
-#' NOTE people NOT on today's people file are DROPPED.
+#' NOTE people NOT on the latest people file are DROPPED.
 #' @author R.J.B. Goudie
 load_accounts <- function(directory){
   files <- dir(directory)
