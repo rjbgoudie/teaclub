@@ -23,7 +23,7 @@ load_directory_penultimate <- function(directory){
 #' @param directory The directory ("owe", "used", "sheet", "paid", "people")
 #' @return The contents of the csv as a data.frame
 #' @author R.J.B. Goudie
-load__directory_x_most_recent <- function(x, directory){
+load_directory_x_most_recent <- function(x, directory){
   file_path <- path_x_most_recent(x = x, directory = directory)
   read.csv(file_path, stringsAsFactor = F)
 }
