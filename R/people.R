@@ -118,30 +118,3 @@ load_people_latest_less_penultimate <- function(sort = F){
     people
   }
 }
-
-#' @title Load setdiff of second most recent and most recent 'people'
-#'
-#' @description
-#' The people file changes from month to month. This gives all the
-#' people from last month, minus the new people.
-#'
-#' \link{load_people_latest_less_penultimate} gives the opposite
-#'
-#' @param sort A logical,  should the people be sorted by display
-#' name?
-#' @return A data.frame, with people corresponding to rows.
-#' @author R.J.B. Goudie
-load_people_penultimate_less_latest <- function(sort = F){
-  people_penultimate <- load_people_penultimate()
-  people_latest <- load_people_latest()
-
-  removed_people_rows <-
-    !people_penultimate$unique_id %in% people_latest$unique_id
-  people <- people_penultimate[removed_people_rows, ]
-
-  if (sort){
-    sort_by_display_name(people)
-  } else {
-    people
-  }
-}
