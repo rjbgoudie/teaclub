@@ -115,20 +115,6 @@ accounts_recent_used <- function(){
   merge_for_these_people_only(recent_used, people_latest)
 }
 
-#' @title Combine account and people data.frames
-#'
-#' @description
-#' Just a wrapper around merge,
-#'
-#' @param accounts An accounts data.frame
-#' @param people A people data.frame
-#' @return A merged data.frame. People who are not on the supplied people list
-#' are DROPPED.
-#' @author R.J.B. Goudie
-merge_for_these_people_only <- function(accounts, people){
-  merge(accounts, people, all.x = F, all.y = T)
-}
-
 #' @title Compute balances
 #'
 #' @description

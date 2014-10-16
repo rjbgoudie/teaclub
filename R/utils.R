@@ -1,3 +1,17 @@
+#' @title Combine account and people data.frames
+#'
+#' @description
+#' Just a wrapper around merge,
+#'
+#' @param accounts An accounts data.frame
+#' @param people A people data.frame
+#' @return A merged data.frame. People who are not on the supplied people list
+#' are DROPPED.
+#' @author R.J.B. Goudie
+merge_for_these_people_only <- function(accounts, people){
+  merge(accounts, people, all.x = F, all.y = T)
+}
+
 #' @title Flip sign of 'amount' column in data.frame
 #' @param df A data.frame, with an 'amount' column
 #' @return The data.frame df,  with sign of amount column flipped
