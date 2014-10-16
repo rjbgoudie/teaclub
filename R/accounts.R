@@ -15,7 +15,7 @@
 #' NOTE people NOT on the latest people file are DROPPED.
 #' @author R.J.B. Goudie
 load_all_paid <- function(){
-  load_accounts("paid")
+  load_all_accounts("paid")
 }
 
 #' @title Load all 'used' data
@@ -35,7 +35,7 @@ load_all_paid <- function(){
 #' NOTE people NOT on the latest people file are DROPPED.
 #' @author R.J.B. Goudie
 load_all_used <- function(){
-  load_accounts("used")
+  load_all_accounts("used")
 }
 
 #' @title Load accounts (either used or paid)
@@ -55,7 +55,7 @@ load_all_used <- function(){
 #'
 #' NOTE people NOT on the latest people file are DROPPED.
 #' @author R.J.B. Goudie
-load_accounts <- function(directory){
+load_all_accounts <- function(directory){
   files <- dir(directory)
   files_paths <- file.path(directory, files)
   files_dates <- sub("\\.[^.]*$", "", files)
