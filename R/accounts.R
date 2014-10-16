@@ -114,10 +114,10 @@ accounts_recent_used <- function(){
 #' @return A merged data.frame
 #' @author R.J.B. Goudie
 merge_accounts_people <- function(accounts,
-                                    people,
-                                    sort = F,
-                                    all.accounts = T,
-                                    all.people = T){
+                                  people,
+                                  sort = F,
+                                  all.accounts = T,
+                                  all.people = T){
   df <- merge(accounts, people, all.x = all.accounts, all.y = all.people)
   if (sort){
     sort_by_display_name(df)
