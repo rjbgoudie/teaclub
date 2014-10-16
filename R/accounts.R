@@ -67,7 +67,7 @@ load_accounts <- function(directory){
 
   # Note that people NOT on the most recent people file are dropped!
   # ie don't include accounts for people not in the people data.frame
-  merge_accounts_people_dropping_leavers(accounts, people_latest)
+  merge_for_these_people_only(accounts, people_latest)
 }
 
 #' @title Load the latest account ("used" or "paid") of new people
@@ -77,7 +77,7 @@ load_accounts <- function(directory){
 load_account_new_people_only <- function(directory){
   latest_account <- load_directory_latest(directory)
   people_new <- load_people_latest_less_penultimate()
-  merge_accounts_people_dropping_leavers(latest_account, people_new)
+  merge_for_these_people_only(latest_account, people_new)
 }
 
 #' @title Load the latest account ("used" or "paid") of not new people
@@ -87,7 +87,7 @@ load_account_new_people_only <- function(directory){
 load_account_penultimate_people <- function(directory){
   latest_account <- load_directory_latest(directory)
   people_penultimate <- load_people_penultimate()
-  merge_accounts_people_dropping_leavers(latest_account, people_penultimate)
+  merge_for_these_people_only(latest_account, people_penultimate)
 }
 
 #' @title How much have people used the teaclub recently?
@@ -112,7 +112,7 @@ accounts_recent_used <- function(){
   used4 <- load_directory_x_most_recent(4, "used")
   recent_used <- rbind(used2, used3, used4)
 
-  merge_accounts_people_dropping_leavers(recent_used, people_latest)
+  merge_for_these_people_only(recent_used, people_latest)
 }
 
 #' @title Combine account and people data.frames
@@ -125,7 +125,7 @@ accounts_recent_used <- function(){
 #' @return A merged data.frame. People who are not on the supplied people list
 #' are DROPPED.
 #' @author R.J.B. Goudie
-merge_accounts_people_dropping_leavers <- function(accounts, people){
+merge_for_these_people_only <- function(accounts, people){
   merge(accounts, people, all.x = F, all.y = T)
 }
 
