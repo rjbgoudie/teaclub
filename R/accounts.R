@@ -102,7 +102,7 @@ load_penultimate_people_latest_account <- function(directory){
 #' The columns of the data.frame are "unique_id", "amount",
 #' "display_name", "email", "handwriting_factor". "amount" is the amount spent.
 #' @author R.J.B. Goudie
-accounts_recent_used <- function(){
+load_last_three_months_accounts <- function(){
   # load accounts of the amount used
   people_latest <- load_people_latest()
 

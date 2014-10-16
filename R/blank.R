@@ -74,7 +74,7 @@ blank_used <- function(){
 #' @author R.J.B. Goudie
 #' @export
 blank_sheet <- function(){
-  recent_used <- accounts_recent_used()
+  recent_used <- load_last_three_months_accounts()
   recent_used[is.na(recent_used$amount), "amount"] <- 0
   recent_used <- sheet_cell_sizes(recent_used)
   recent_used <- sort_by_display_name(recent_used)
