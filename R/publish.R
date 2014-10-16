@@ -88,8 +88,7 @@ publish_owe_pdf <- function(balance_df){
   latex_top <- paste("\\documentclass[a4paper]{article}\n\\usepackage[top=0.25in, bottom=0.25in, left=0.25in, right=0.25in]{geometry}\n\\usepackage{longtable}\n\\renewcommand{\\topfraction}{0.999}	% max fraction of floats at top\n\\renewcommand{\\bottomfraction}{0.999}\n\\renewcommand{\\textfraction}{0}\n\\begin{document}\n  \n\\begin{center}\n\\textbf{BSU Tea Club balances at ", today_date_file_string(), "}\\end{center}\n\\linespread{1.5}")
   latex_bottom <- "\\end{document}"
 
-  owe_file <- paste0(today_date_file_string(), ".tex")
-  owe_file_path <- file.path("owe", owe_file)
+  owe_file_path <- path_today("owe", extension = "tex")
   cat(latex_top,
       latex_table,
       latex_bottom,

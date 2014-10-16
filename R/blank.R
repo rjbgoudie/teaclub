@@ -82,8 +82,6 @@ blank_sheet <- function(){
   sheet_df <- sheet_df(recent_used)
   sheet_df_to_latex(sheet_df)
 
-  sheet_file <- paste0(today_date_file_string(), ".tex")
-  sheet_file_path <- file.path("sheet", sheet_file)
-
+  sheet_file_path <- path_today("sheet", "tex")
   system(paste("pdflatex", "-output-directory", "sheet", sheet_file_path))
 }

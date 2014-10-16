@@ -72,8 +72,7 @@ sheet_df_to_latex <- function(sheet_df){
   latex_top <- "\\documentclass[a4paper]{article}\n\\usepackage[top=0.25in, bottom=0.25in, left=0.25in, right=0.25in]{geometry}\n\\renewcommand{\\topfraction}{0.999}	% max fraction of floats at top\n\\renewcommand{\\bottomfraction}{0.999}\n\\renewcommand{\\textfraction}{0}\n\\begin{document}\n  \n\\begin{center}\n\\textbf{BSU TEA CLUB}\n\nNew staff/students and long-term visitors: please add your name in a free space.\n\nShort-term visitors: please enter purchases in `visitors' section\n\\end{center}\n\\linespread{1.5}"
   latex_bottom <- "\\end{document}"
 
-  sheet_file <- paste0(today_date_file_string(), ".tex")
-  sheet_file_path <- file.path("sheet", sheet_file)
+  sheet_file_path <- path_today("sheet", extension = "tex")
   cat(latex_top,
       sheet_latex_list[[1]],
       sheet_latex_list[[2]],
