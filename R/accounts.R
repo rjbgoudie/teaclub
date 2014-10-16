@@ -67,7 +67,7 @@ load_accounts <- function(directory){
 
   # Note that people NOT on the most recent people file are dropped!
   # ie don't include accounts for people not in the people data.frame
-  merge_accounts_people(accounts, people_latest, all.accounts = F)
+  merge_accounts_people_dropping_leavers(accounts, people_latest)
 }
 
 #' @title How much have people used the teaclub recently?
@@ -92,31 +92,21 @@ accounts_recent_used <- function(){
   used4 <- load_directory_x_most_recent(4, "used")
   recent_used <- rbind(used2, used3, used4)
 
-  merge_accounts_people(recent_used,
-                          people_latest,
-                          all.accounts = F,
-                          all.people = T)
+  merge_accounts_people_dropping_leavers(recent_used, people_latest)
 }
 
 #' @title Combine account and people data.frames
 #'
 #' @description
-#' Just a wrapper around merge, plus sorting option
+#' Just a wrapper around merge,
 #'
 #' @param accounts An accounts data.frame
 #' @param people A people data.frame
-#' @param all.accounts Should all accounts be included in the merge? i.e. should
-#' accounts be included for people not in the 'people' data.frame? If FALSE,
-#' these accounts arre DROPPED
-#' @param all.people Should all people be included in the merge? i.e. should
-#' people who do not have a corresponding account be dropped?
-#' @return A merged data.frame
+#' @return A merged data.frame. People who are not on the supplied people list
+#' are DROPPED.
 #' @author R.J.B. Goudie
-merge_accounts_people <- function(accounts,
-                                  people,
-                                  all.accounts = T,
-                                  all.people = T){
-  merge(accounts, people, all.x = all.accounts, all.y = all.people)
+merge_accounts_people_dropping_leavers <- function(accounts, people){
+  merge(accounts, people, all.x = F, all.y = T)
 }
 
 #' @title Compute balances

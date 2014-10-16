@@ -42,7 +42,7 @@ load_directory_new_people_only <- function(directory){
 
   new_accounts_only <- accounts[new_accounts_rows, ]
 
-  merge_accounts_people(new_accounts_only, new_people_only)
+  merge_accounts_people_dropping_leavers(new_accounts_only, new_people_only)
 }
 
 #' @title Load directory not new people
@@ -59,5 +59,6 @@ load_directory_penultimate_people <- function(directory){
   penultimate_people_accounts_only <-
     accounts[penultimate_people_accounts_rows, ]
 
-  merge_accounts_people(penultimate_people_accounts_only, people_penultimate)
+  merge_accounts_people_dropping_leavers(penultimate_people_accounts_only,
+                                         people_penultimate)
 }
