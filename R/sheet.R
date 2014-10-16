@@ -6,7 +6,7 @@ sheet_cell_sizes <- function(df){
   df <- plyr::ddply(df,
                     c("display_name", "unique_id"),
                     plyr::summarise,
-                    size = max(min(sum(-amount), 1000), 350) +
+                    size = max(min(sum(amount), 1000), 350) +
                       100 * mean(handwriting_factor))
   total <- sum(df$size)
   transform(df, size = floor(size/total*(22*40-60)))

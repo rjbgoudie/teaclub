@@ -33,7 +33,6 @@ accounts_recent_used <- function(){
   used3 <- load_x_most_recent(3, "used")
   used4 <- load_x_most_recent(4, "used")
   recent_used <- rbind(used2, used3, used4)
-  recent_used <- make_negative(recent_used)
 
   combine_accounts_people(recent_used,
                           people,
