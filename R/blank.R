@@ -22,7 +22,9 @@ blank_people <- function(){
 #'
 #' @description
 #' Makes blank paid files at "paid/TODAYDATE.csv", ready to be updated
-#' with the amount people paid up to today.
+#' with the amount people. This file will include everyone in last month's
+#' people file (IN ORDER), and then people added to this month's people file
+#' AT THE BOTTOM.
 #'
 #' @author R.J.B. Goudie
 #' @export
@@ -43,7 +45,9 @@ blank_paid <- function(){
 #'
 #' @description
 #' Makes blank used files at "used/TODAYDATE.csv", ready to be updated
-#' with the amount people have spent in the last month.
+#' with the amount people have spent in the last month. This file will include
+#' everyone in last month's people file (IN ORDER), and then people added to
+#' this month's people file AT THE BOTTOM.
 #'
 #' @author R.J.B. Goudie
 #' @export
@@ -62,7 +66,10 @@ blank_used <- function(){
 #' @title Make new blank sheet
 #'
 #' @description
-#' Makes blank sheet at "sheet/TODAYDATE.pdf", ready to be printed
+#' Makes blank sheet at "sheet/TODAYDATE.pdf", ready to be printed.
+#'
+#' This will ONLY include people in the TODAY's people file. It will be sorted
+#' by display_name
 #'
 #' @author R.J.B. Goudie
 #' @export
