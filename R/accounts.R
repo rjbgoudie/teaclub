@@ -105,7 +105,6 @@ accounts_recent_used <- function(){
 #'
 #' @param accounts An accounts data.frame
 #' @param people A people data.frame
-#' @param sort A logical, should the data.frame be sorted (by display name)
 #' @param all.accounts Should all accounts be included in the merge? i.e. should
 #' accounts be included for people not in the 'people' data.frame? If FALSE,
 #' these accounts arre DROPPED
@@ -115,15 +114,9 @@ accounts_recent_used <- function(){
 #' @author R.J.B. Goudie
 merge_accounts_people <- function(accounts,
                                   people,
-                                  sort = F,
                                   all.accounts = T,
                                   all.people = T){
-  df <- merge(accounts, people, all.x = all.accounts, all.y = all.people)
-  if (sort){
-    sort_by_display_name(df)
-  } else {
-    df
-  }
+  merge(accounts, people, all.x = all.accounts, all.y = all.people)
 }
 
 #' @title Compute balances
