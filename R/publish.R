@@ -61,7 +61,7 @@ send_emails <- function(balance_df, owe_function, credit_function){
 
   email_df <- rbind(email_df_owing, email_df_incredit)
 
-  a_ply(email_df, 1, function(row){
+  plyr::a_ply(email_df, 1, function(row){
     message("Emailing ", row$display_name, " (", row$email, ")")
     call <- paste0("echo ",
                    shQuote(row$message),

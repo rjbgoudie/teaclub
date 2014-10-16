@@ -83,8 +83,8 @@ compute_balances <- function(){
   # IMPORTANT
   # Note that the sign is flipped here
   balance_df <- plyr::ddply(all_df,
-                            .(display_name, unique_id, email),
-                            summarise,
+                            c("display_name", "unique_id", "email"),
+                            plyr::summarise,
                             balance = -sum(amount)/100)
   balance_df
 }

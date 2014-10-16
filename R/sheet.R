@@ -4,8 +4,8 @@
 #' @author R.J.B. Goudie
 sheet_cell_sizes <- function(df){
   df <- plyr::ddply(df,
-                    .(display_name, unique_id),
-                    summarise,
+                    c("display_name", "unique_id"),
+                    plyr::summarise,
                     size = max(min(sum(-amount), 1000), 350) +
                       100 * mean(handwriting_factor))
   total <- sum(df$size)
@@ -50,11 +50,13 @@ data.frame.as.latex <- function(df, tabular.environment = "tabular"){
   r[2] <- paste("|", r[1], collapse = "")
   df_xtable <- xtable::xtable(df, align = r)
 
-  capture.output(xtable::print(df_xtable,
-                               include.colnames = F,
-                               include.rownames = F,
-                               tabular.environment = tabular.environment,
-                               hline.after = 0:min(nrow(df_xtable), 40)))
+  capture.output(xtable::print.xtable(
+    df_xtable,
+    include.colnames = F,
+    floating = F,
+    include.rownames = F,
+    tabular.environment = tabular.environment,
+    hline.after = 0:min(nrow(df_xtable), 40)))
 }
 
 #' @title Convert sheet_df to latex
