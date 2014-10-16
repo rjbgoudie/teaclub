@@ -1,7 +1,6 @@
 #' @title Load most recent 'people' data frame
-#' @param ... Passed to load_people_x_most_recent. Currently
-#' includes sort logical
-#' @return A data.frame, with each person on a separate row. Columns are
+#' @return A data.frame, with each person on a separate row. Rows are sorted by
+#' display_name. Columns are
 #' "unique_id", "display_name", "email" and "handwriting_factor"
 #'
 #' "unique_id" - MUST be unique across all time,  since balances match on this
@@ -10,14 +9,13 @@
 #' "handwriting_factor" - fudge the number of cells in tearoom sheet
 #'
 #' @author R.J.B. Goudie
-load_people_latest <- function(...){
-  load_people_x_most_recent(1, ...)
+load_people_latest <- function(){
+  load_people_x_most_recent(1)
 }
 
 #' @title Load second most recent 'people' data frame
-#' @param ... Passed to load_people_x_most_recent. Currently
-#' includes sort logical
-#' @return A data.frame, with each person on a separate row. Columns are
+#' @return A data.frame, with each person on a separate row. Rows are sorted by
+#' display_name. Columns are
 #' "unique_id", "display_name", "email" and "handwriting_factor"
 #'
 #' "unique_id" - MUST be unique across all time,  since balances match on this
@@ -25,16 +23,15 @@ load_people_latest <- function(...){
 #' "email" - An email address. Part after @ sign (for internal addresses) can be omitted
 #' "handwriting_factor" - fudge the number of cells in tearoom sheet
 #' @author R.J.B. Goudie
-load_people_penultimate <- function(...){
-  load_people_x_most_recent(2, ...)
+load_people_penultimate <- function(){
+  load_people_x_most_recent(2)
 }
 
 #' @title Load xth most recent 'people' data frame
 #' @param x An integer, specifying which most recent file to get. 1 means most
 #' recent, 2 second most recent etc
-#' @param sort A logical, should the people be sorted by display
-#' name?
-#' @return A data.frame, with each person on a separate row. Columns are
+#' @return A data.frame, with each person on a separate row.
+#' Rows are sorted by display_name. Columns are
 #' "unique_id", "display_name", "email" and "handwriting_factor"
 #'
 #' "unique_id" - MUST be unique across all time,  since balances match on this
@@ -42,29 +39,20 @@ load_people_penultimate <- function(...){
 #' "email" - An email address. Part after @ sign (for internal addresses) can be omitted
 #' "handwriting_factor" - fudge the number of cells in tearoom sheet
 #' @author R.J.B. Goudie
-load_people_x_most_recent <- function(x, sort = T){
+load_people_x_most_recent <- function(x){
   people <- load_directory_x_most_recent(x, "people")
-
-  if (sort){
-    sort_by_display_name(people)
-  } else {
-    people
-  }
+  sort_by_display_name(people)
 }
 
 #' @title Load union of second most recent and most recent 'people'
 #'
 #' @description
 #' The people file changes from month to month. This gives all the
-#' people from last month, plus the new people.
+#' people from last month, plus the new people. The new people are added to the
+#' bottom of the data.frame. Within each group (ie new and old people), the
+#' rows are sorted by display_name.
 #'
-#' If sort = F, new people appear at the bottom.
-#' \link{load_people_latest_union_penultimate} gives the opposite
-#'
-#' @param sort A logical,  should the people be sorted by display
-#' name?
-#' @return A data.frame, with people corresponding to rows. If sort = F
-#' then the new people will be appended to the end of the data.frame
+#' @return A data.frame, with people corresponding to rows.
 #' Columns are "unique_id", "display_name", "email" and "handwriting_factor"
 #'
 #' "unique_id" - MUST be unique across all time,  since balances match on this
@@ -73,16 +61,10 @@ load_people_x_most_recent <- function(x, sort = T){
 #' "handwriting_factor" - fudge the number of cells in tearoom sheet
 #'
 #' @author R.J.B. Goudie
-load_people_penultimate_union_latest <- function(sort = F){
+load_people_penultimate_union_latest <- function(){
   people_penultimate <- load_people_penultimate()
   people_new <- load_people_latest_less_penultimate()
-  people <- rbind(people_penultimate, people_new)
-
-  if (sort){
-    sort_by_display_name(people)
-  } else {
-    people
-  }
+  rbind(people_penultimate, people_new)
 }
 
 #' @title Load setdiff of most recent and second most recent 'people'
@@ -94,9 +76,8 @@ load_people_penultimate_union_latest <- function(sort = F){
 #'
 #' \link{load_people_penultimate_less_latest} gives the opposite
 #'
-#' @param sort A logical, should the people be sorted by display
-#' name?
-#' @return A data.frame, with people corresponding to rows.
+#' @return A data.frame, with people corresponding to rows, sorted by
+#' display_name.
 #' Columns are "unique_id", "display_name", "email" and "handwriting_factor"
 #'
 #' "unique_id" - MUST be unique across all time,  since balances match on this
@@ -105,16 +86,10 @@ load_people_penultimate_union_latest <- function(sort = F){
 #' "handwriting_factor" - fudge the number of cells in tearoom sheet
 #'
 #' @author R.J.B. Goudie
-load_people_latest_less_penultimate <- function(sort = F){
+load_people_latest_less_penultimate <- function(){
   people_penultimate <- load_people_penultimate()
   people_latest <- load_people_latest()
 
   new_people_rows <- !people_latest$unique_id %in% people_penultimate$unique_id
-  people <- people_latest[new_people_rows, ]
-
-  if (sort){
-    sort_by_display_name(people)
-  } else {
-    people
-  }
+  people_latest[new_people_rows, ]
 }
