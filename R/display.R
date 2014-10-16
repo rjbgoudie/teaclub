@@ -1,8 +1,23 @@
+#' @title Display a summary of the latest paid file
+#' @return Prints the contents to the console
+#' @author R.J.B. Goudie
+#' @export
+display_paid <- function(){
+  display_check("paid")
+}
+
+#' @title Display a summary of the latest used file
+#' @return Prints the contents to the console
+#' @author R.J.B. Goudie
+#' @export
+display_used <- function(){
+  display_check("used")
+}
+
 #' @title Display the most recent used/paid file
 #' @param directory A character,  either "used" or "paid"
 #' @return Prints the contents to the console
 #' @author R.J.B. Goudie
-#' @export
 display_check <- function(directory){
   new <- load_directory_new_people_only(directory)
   existing <- load_directory_penultimate_people(directory)
