@@ -1,36 +1,40 @@
 #' @title Get path to csv for today
 #' @param directory The directory ("owe", "used", "sheet", "paid", "people")
+#' @param extension The extension to append to the path
 #' @return A file path of the form e.g. "owe/2014-09-09.csv"
 #' @author R.J.B. Goudie
-path_today <- function(directory){
+path_today <- function(directory, extension = "csv"){
   base <- today_date_file_string()
-  today_filename <- paste0(base, ".csv")
+  today_filename <- paste0(base, ".", extension)
   file.path(directory, today_filename)
 }
 
 #' @title Get path to csv for the most recent file
 #' @param directory The directory ("owe", "used", "sheet", "paid", "people")
+#' @param extension The extension to append to the path
 #' @return A file path of the form e.g. "owe/2014-09-09.csv"
 #' @author R.J.B. Goudie
-path_most_recent <- function(directory){
-  path_x_most_recent(1, directory)
+path_most_recent <- function(directory, extension = "csv"){
+  path_x_most_recent(1, directory, extension)
 }
 
 #' @title Get path to csv for second most recent file
 #' @param directory The directory ("owe", "used", "sheet", "paid", "people")
+#' @param extension The extension to append to the path
 #' @return A file path of the form e.g. "owe/2014-09-09.csv"
 #' @author R.J.B. Goudie
-path_second_most_recent <- function(directory){
+path_second_most_recent <- function(directory, extension = "csv"){
   path_x_most_recent(2, directory)
 }
 
 #' @title Get path to csv for xth most recent month
 #' @param directory The directory ("owe", "used", "sheet", "paid", "people")
+#' @param extension The extension to append to the path
 #' @return A file path of the form e.g. "owe/2014-09-09.csv"
 #' @author R.J.B. Goudie
-path_x_most_recent <- function(x, directory){
+path_x_most_recent <- function(x, directory, extension = "csv"){
   base <- find_x_most_recent_file(x, directory)
-  file <- paste0(base, ".csv")
+  file <- paste0(base, ".", extension)
   file.path(directory, file)
 }
 
