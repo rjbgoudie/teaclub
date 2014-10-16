@@ -45,7 +45,9 @@ sheet_df <- function(df){
 #' @param tabular.environment A tabular.environment from xtable
 #' @return A character string of latex code
 #' @author R.J.B. Goudie
-data.frame.as.latex <- function(df, tabular.environment = "tabular"){
+data.frame.as.latex <- function(df,
+                                tabular.environment = "tabular",
+                                floating = T){
   r <- rep("p{2cm}|", length = ncol(df) + 1)
   r[2] <- paste("|", r[1], collapse = "")
   df_xtable <- xtable::xtable(df, align = r)
@@ -53,7 +55,7 @@ data.frame.as.latex <- function(df, tabular.environment = "tabular"){
   capture.output(xtable::print.xtable(
     df_xtable,
     include.colnames = F,
-    floating = F,
+    floating = floating,
     include.rownames = F,
     tabular.environment = tabular.environment,
     hline.after = 0:min(nrow(df_xtable), 40)))

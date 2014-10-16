@@ -87,7 +87,9 @@ publish_owe_pdf <- function(balance_df){
 
   owe_df <- cbind(top_owe_df, bottom_owe_df)
 
-  latex_table <- data.frame.as.latex(owe_df, tabular.environment= "longtable")
+  latex_table <- data.frame.as.latex(owe_df,
+                                     tabular.environment= "longtable",
+                                     floating = F)
   latex_top <- paste("\\documentclass[a4paper]{article}\n\\usepackage[top=0.25in, bottom=0.25in, left=0.25in, right=0.25in]{geometry}\n\\usepackage{longtable}\n\\renewcommand{\\topfraction}{0.999}	% max fraction of floats at top\n\\renewcommand{\\bottomfraction}{0.999}\n\\renewcommand{\\textfraction}{0}\n\\begin{document}\n  \n\\begin{center}\n\\textbf{BSU Tea Club balances at ", today_date_file_string(), "}\\end{center}\n\\linespread{1.5}")
   latex_bottom <- "\\end{document}"
 
