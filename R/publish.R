@@ -87,7 +87,7 @@ email_row <- function(row){
 #' @author R.J.B. Goudie
 filter_people_lacking_email <- function(x){
   has_email_address <- x$email != ""
-  no_email_display_names <- balance_df[!has_email_address, "display_name"]
+  no_email_display_names <- x[!has_email_address, "display_name"]
   no_email_string <- paste(no_email_display_names, collapse = " ")
   message("Excluding people with no email address: ", no_email_string)
   x[has_email_address, ]
