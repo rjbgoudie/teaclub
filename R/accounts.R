@@ -1,7 +1,47 @@
+#' @title Load all 'paid' data
+#'
+#' @description
+#' Loads all data in paid/*.csv and joins them together into one data.frame
+#'
+#' NOTE people NOT on latest people file are DROPPED.
+#'
+#' @return A data.frame with used or paid for all current people. The result is
+#' a all of the csv files in the directory joined together as a data.frame,
+#' combined with extra information from the current people file.
+#'
+#' The columns of the data.frame are "unique_id", "date", "amount",
+#' "display_name", "email", "handwriting_factor"
+#'
+#' NOTE people NOT on the latest people file are DROPPED.
+#' @author R.J.B. Goudie
+load_all_paid <- function(){
+  load_accounts("paid")
+}
+
+#' @title Load all 'used' data
+#'
+#' @description
+#' Loads all data in used/*.csv and joins them together into one data.frame
+#'
+#' NOTE people NOT on latest people file are DROPPED.
+#'
+#' @return A data.frame with used or paid for all current people. The result is
+#' a all of the csv files in the directory joined together as a data.frame,
+#' combined with extra information from the current people file.
+#'
+#' The columns of the data.frame are "unique_id", "date", "amount",
+#' "display_name", "email", "handwriting_factor"
+#'
+#' NOTE people NOT on the latest people file are DROPPED.
+#' @author R.J.B. Goudie
+load_all_used <- function(){
+  load_accounts("used")
+}
+
 #' @title Load accounts (either used or paid)
 #'
 #' @description
-#' Loads either used/*.csv or paid/*.csv
+#' Loads all data in the directory and joins them together into one data.frame
 #'
 #' NOTE people NOT on latest people file are DROPPED.
 #'
@@ -106,11 +146,11 @@ combine_accounts_people <- function(accounts,
 #' @author R.J.B. Goudie
 account_balances <- function(){
   # load accounts of the amount used
-  used_df <- load_accounts("used")
+  used_df <- load_all_used()
   used_df <- make_negative(used_df)
 
   # load accounts of the amount paid
-  paid_df <- load_accounts("paid")
+  paid_df <- load_all_paid()
 
   # combine the data frames
   all_df <- rbind(used_df, paid_df)
