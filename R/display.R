@@ -44,7 +44,7 @@ display_summary <- function(){
 #' @export
 display_balances <- function(){
   # Note that people NOT on the most recent people file are dropped!
-  balance_df <- compute_balances()
+  balance_df <- account_balances()
 
   out <- subset(balance_df, select = c("unique_id", "display_name", "balance"))
   sort_by_display_name(out)

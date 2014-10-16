@@ -104,7 +104,7 @@ combine_accounts_people <- function(accounts,
 #'
 #' NOTE the balance is in POUNDS
 #' @author R.J.B. Goudie
-compute_balances <- function(){
+account_balances <- function(){
   # load accounts of the amount used
   used_df <- load_accounts("used")
   used_df <- make_negative(used_df)

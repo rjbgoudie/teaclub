@@ -15,7 +15,7 @@ publish_balances <- function(owe_function, credit_function){
   display_summary()
 
   # Note that people NOT on the most recent people file are dropped!
-  balance_df <- compute_balances()
+  balance_df <- account_balances()
 
   # export_email_tab(balance_df)
   send_emails(balance_df, owe_function, credit_function)
