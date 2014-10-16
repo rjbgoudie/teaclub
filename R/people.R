@@ -24,7 +24,7 @@ load_people_penultimate <- function(...){
 #' @return A data.frame, with people corresponding to rows
 #' @author R.J.B. Goudie
 load_people_x_most_recent <- function(x, sort = T){
-  people <- load_x_most_recent(x, "people")
+  people <- load_directory_x_most_recent(x, "people")
 
   if (sort){
     sort_by_display_name(people)

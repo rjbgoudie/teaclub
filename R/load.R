@@ -3,8 +3,8 @@
 #' @param directory The directory ("owe", "used", "sheet", "paid", "people")
 #' @return The contents of the csv as a data.frame
 #' @author R.J.B. Goudie
-load_latest <- function(directory){
-  load_x_most_recent(1, directory)
+load_directory_latest <- function(directory){
+  load_directory_x_most_recent(1, directory)
 }
 
 #' @title Load penultimate CSV file
@@ -12,8 +12,8 @@ load_latest <- function(directory){
 #' @param directory The directory ("owe", "used", "sheet", "paid", "people")
 #' @return The contents of the csv as a data.frame
 #' @author R.J.B. Goudie
-load_penultimate <- function(directory){
-  load_x_most_recent(2, directory)
+load_directory_penultimate <- function(directory){
+  load_directory_x_most_recent(2, directory)
 }
 
 #' @title Load xth most recent CSV file
@@ -23,7 +23,7 @@ load_penultimate <- function(directory){
 #' @param directory The directory ("owe", "used", "sheet", "paid", "people")
 #' @return The contents of the csv as a data.frame
 #' @author R.J.B. Goudie
-load_x_most_recent <- function(x, directory){
+load__directory_x_most_recent <- function(x, directory){
   file_path <- path_x_most_recent(x = x, directory = directory)
   read.csv(file_path, stringsAsFactor = F)
 }
@@ -33,7 +33,7 @@ load_x_most_recent <- function(x, directory){
 #' @return A data.frame
 #' @author R.J.B. Goudie
 load_directory_new_people_only <- function(directory){
-  accounts <- load_latest(directory)
+  accounts <- load_directory_latest(directory)
 
   new_people_only <- load_people_latest_less_penultimate()
 
@@ -50,7 +50,7 @@ load_directory_new_people_only <- function(directory){
 #' @return A data.frame
 #' @author R.J.B. Goudie
 load_directory_penultimate_people <- function(directory){
-  accounts <- load_latest(directory)
+  accounts <- load_directory_latest(directory)
 
   people_penultimate <- load_people_penultimate()
   penultimate_people_unique_ids <- people_penultimate$unique_id

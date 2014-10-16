@@ -47,9 +47,9 @@ accounts_recent_used <- function(){
   people <- load_people_latest()
 
   # Don't actually want most recent, since already made this month file
-  used2 <- load_x_most_recent(2, "used")
-  used3 <- load_x_most_recent(3, "used")
-  used4 <- load_x_most_recent(4, "used")
+  used2 <- load_directory_x_most_recent(2, "used")
+  used3 <- load_directory_x_most_recent(3, "used")
+  used4 <- load_directory_x_most_recent(4, "used")
   recent_used <- rbind(used2, used3, used4)
 
   combine_accounts_people(recent_used,

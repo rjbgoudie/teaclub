@@ -43,8 +43,8 @@ display_check <- function(directory){
 #' @author R.J.B. Goudie
 #' @export
 display_summary <- function(){
-  last_used <- load_latest("used")
-  last_paid <- load_latest("paid")
+  last_used <- load_directory_latest("used")
+  last_paid <- load_directory_latest("paid")
   used_last_month <- sum(last_used$amount)/100
   paid_last_month <- sum(last_paid$amount)/100
   message("Summary:")
