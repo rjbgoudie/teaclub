@@ -10,16 +10,23 @@
 #' people who owe money to the teaclub
 #' @param credit_function A function that adds a message column to balance_df
 #' for people who are in credit
+#' @param dry_run A logical. If true, emails are NOT sent, instead a data.frame
+#' including the messages that will be sent is returned.
 #' @export
-publish_balances <- function(owe_function, credit_function){
+publish_balances <- function(owe_function, credit_function, dry_run = T){
   display_summary()
 
   # Note that people NOT on the most recent people file are dropped!
   balance_df <- account_balances()
+  publish_owe_pdf(balance_df)
 
   # export_email_tab(balance_df)
-  send_emails(balance_df, owe_function, credit_function)
-  publish_owe_pdf(balance_df)
+  email_df <- draft_all_emails(balance_df, owe_function, credit_function)
+  if (dry_run){
+    email_df
+  } else {
+    send_all_emails(email_df)
+  }
 }
 
 #' @title Send emails with balances
@@ -37,11 +44,8 @@ publish_balances <- function(owe_function, credit_function){
 #' for people who are in credit
 #' @return NULL
 #' @author R.J.B. Goudie
-send_emails <- function(balance_df, owe_function, credit_function){
-  no_email <- balance_df$email == ""
-  no_email_string <- paste(balance_df[no_email, "display_name"], collapse = " ")
-  message("Excluding people with no email address: ", no_email_string)
-  email_df <- subset(balance_df, email != "")
+draft_all_emails <- function(balance_df, owe_function, credit_function){
+  email_df <- filter_people_lacking_email(balance_df)
   email_df <- email_df[, c("display_name", "email", "balance")]
 
   total_in_league <- nrow(balance_df)
@@ -54,17 +58,39 @@ send_emails <- function(balance_df, owe_function, credit_function){
   email_df_incredit$position <- rank(-email_df_incredit$balance, ties.method = "first")
   email_df_incredit <- credit_function(email_df_incredit)
 
-  email_df <- rbind(email_df_owing, email_df_incredit)
+  rbind(email_df_owing, email_df_incredit)
+}
 
-  plyr::a_ply(email_df, 1, function(row){
-    message("Emailing ", row$display_name, " (", row$email, ")")
-    call <- paste0("echo ",
-                   shQuote(row$message),
-                   " | mailx -s '[tea-club] Statement' ",
-                   row$email)
-    system(call)
-  })
+send_all_emails <- function(x){
+  plyr::a_ply(x, 1, email_row)
   message("Messages sent")
+}
+
+email_row <- function(row){
+  message("Emailing ", row$display_name, " (", row$email, ")")
+
+  email_subject <- "[tea-club] Statement"
+  # Pipe the message into mailx
+  # echo message | mailx -s 'Subject' email@address.com
+  call <- paste0("echo ",
+                 shQuote(row$message),
+                 " | mailx -s '",
+                 email_subject,
+                 "' ",
+                 row$email)
+  system(call)
+}
+
+#' @title Filter out rows with blank email address
+#' @param x A data.frame
+#' @return The data.frame x, but with rows with email == "" removed
+#' @author R.J.B. Goudie
+filter_people_lacking_email <- function(x){
+  has_email_address <- x$email != ""
+  no_email_display_names <- balance_df[!has_email_address, "display_name"]
+  no_email_string <- paste(no_email_display_names, collapse = " ")
+  message("Excluding people with no email address: ", no_email_string)
+  x[has_email_address, ]
 }
 
 #' @title Make PDF of what people owe
