@@ -27,38 +27,3 @@ load_directory_x_most_recent <- function(x, directory){
   file_path <- path_x_most_recent(x = x, directory = directory)
   read.csv(file_path, stringsAsFactor = F)
 }
-
-#' @title Load directory new people only
-#' @param directory A character,  either "used" or "paid"
-#' @return A data.frame
-#' @author R.J.B. Goudie
-load_directory_new_people_only <- function(directory){
-  accounts <- load_directory_latest(directory)
-
-  new_people_only <- load_people_latest_less_penultimate()
-
-  new_unique_ids <- new_people_only$unique_id
-  new_accounts_rows <- accounts$unique_id %in% new_unique_ids
-
-  new_accounts_only <- accounts[new_accounts_rows, ]
-
-  merge_accounts_people_dropping_leavers(new_accounts_only, new_people_only)
-}
-
-#' @title Load directory not new people
-#' @param directory A character, either "used" or "paid"
-#' @return A data.frame
-#' @author R.J.B. Goudie
-load_directory_penultimate_people <- function(directory){
-  accounts <- load_directory_latest(directory)
-
-  people_penultimate <- load_people_penultimate()
-  penultimate_people_unique_ids <- people_penultimate$unique_id
-  penultimate_people_accounts_rows <-
-    accounts$unique_id %in% penultimate_people_unique_ids
-  penultimate_people_accounts_only <-
-    accounts[penultimate_people_accounts_rows, ]
-
-  merge_accounts_people_dropping_leavers(penultimate_people_accounts_only,
-                                         people_penultimate)
-}

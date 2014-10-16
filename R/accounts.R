@@ -70,6 +70,26 @@ load_accounts <- function(directory){
   merge_accounts_people_dropping_leavers(accounts, people_latest)
 }
 
+#' @title Load the latest account ("used" or "paid") of new people
+#' @param directory A character,  either "used" or "paid"
+#' @return A data.frame
+#' @author R.J.B. Goudie
+load_account_new_people_only <- function(directory){
+  latest_account <- load_directory_latest(directory)
+  people_new <- load_people_latest_less_penultimate()
+  merge_accounts_people_dropping_leavers(latest_account, people_new)
+}
+
+#' @title Load the latest account ("used" or "paid") of not new people
+#' @param directory A character, either "used" or "paid"
+#' @return A data.frame
+#' @author R.J.B. Goudie
+load_account_penultimate_people <- function(directory){
+  latest_account <- load_directory_latest(directory)
+  people_penultimate <- load_people_penultimate()
+  merge_accounts_people_dropping_leavers(latest_account, people_penultimate)
+}
+
 #' @title How much have people used the teaclub recently?
 #'
 #' @description

@@ -19,8 +19,8 @@ display_used <- function(){
 #' @return Prints the contents to the console
 #' @author R.J.B. Goudie
 display_check <- function(directory){
-  new <- load_directory_new_people_only(directory)
-  existing <- load_directory_penultimate_people(directory)
+  new <- load_account_new_people_only(directory)
+  existing <- load_account_penultimate_people(directory)
 
   existing <- subset(existing,
                      select = c("unique_id", "display_name", "amount"))
